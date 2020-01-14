@@ -1,0 +1,35 @@
+server:
+ port: 8801
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      label: master
+      profile: prod
+      uri: http://localhost:8800/
+#      discovery: #发现配置服务
+#        enabled: true
+#        service-id: config-server
+    bus: #总线配置
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq: #rabbitmq
+    host: 192.168.233.133
+    port: 5672
+    username: admin
+    password: admin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8091/eureka/
+    instance:
+      prefer-ip-address: true
+      instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+      appname: config-client
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

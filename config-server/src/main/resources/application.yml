@@ -1,0 +1,28 @@
+server:
+  port: 8800
+spring:
+  application:
+    name: config-server
+  rabbitmq: #rabbitmq
+    host: 192.168.233.133
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+    config:
+      server:
+        git:
+#          uri: https://git.dev.tencent.com/animals_haha/springcloud
+          uri: https://github.com/whynot001/springcloud
+          searchPaths:  ${spring.application.name}
+          username: whynot001
+          password: goodmanpassword001
+      label: master
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8091/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    appname: config-server

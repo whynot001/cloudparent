@@ -1,0 +1,29 @@
+server:
+  port: 8060
+spring:
+  application:
+    name: service-turbine
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id:
+      ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://localhost:8091/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      cors:
+        allowed-origins: '*'
+        allowed-methods: '*'
+turbine:
+  app-config: service-ribbon,service-ribbon-1
+  aggregator:
+    cluster-config: default
+  cluster-name-expression: new String("default")
+  combine-host-port: true
+  instanceUrlSuffix:
+    default: actuator/hystrix.stream

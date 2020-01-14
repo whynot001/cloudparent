@@ -1,0 +1,18 @@
+server:
+  port: 8071
+spring:
+  application:
+    name: service-ribbon-1
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id:
+      ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://localhost:8091/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

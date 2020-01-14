@@ -1,0 +1,14 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8091/eureka/
+    proxy-host: app-service
+  instance:
+    prefer-ip-address: true
+    instance-id:
+      ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+spring:
+  application:
+    name: service-provider
+server:
+  port: 8082
